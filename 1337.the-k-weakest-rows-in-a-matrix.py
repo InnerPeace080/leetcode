@@ -8,7 +8,16 @@
 class Solution:
     def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:
         numberOfSolider = [sum(row) for row in mat]
-        minRowIndex = numberOfSolider.index(min(numberOfSolider))
-        print(minRowIndex)
+        print(numberOfSolider)
+        result = []
+
+        for i in range(k):
+            minRowIndex = numberOfSolider.index(min(numberOfSolider))
+            result.append(minRowIndex)
+            # numberOfSolider = numberOfSolider[:minRowIndex] + numberOfSolider[minRowIndex + 1:]
+            numberOfSolider[minRowIndex] = sys.maxsize
+            # print(minRowIndex, numberOfSolider)
+
+        return result
 
 # @lc code=end

@@ -7,6 +7,5 @@
 # @lc code=start
 class Solution:
     def minStoneSum(self, piles: List[int], k: int) -> int:
-        
+        pass
 # @lc code=end
-

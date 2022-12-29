@@ -19,32 +19,25 @@ class Solution:
         queue = []
         timeCounter = 1
         busy = 0
-        taskByTimeDict = {}
-
-        for task in enumerate(tasks):
-            if task[1][0] not in taskByTimeDict.keys():
-                taskByTimeDict[task[1][0]] = []
-
-            taskByTimeDict[task[1][0]].append(task)
 
         taskOrder = []
-        sortedTime = sorted(taskByTimeDict.keys())
+
+        sortedTaskByTime = sorted([(task[1][0], task) for task in enumerate(tasks)])
 
         while True:
-            if (len(queue) == 0 and len(sortedTime) == 0):
+            if (len(queue) == 0 and len(sortedTaskByTime) == 0):
                 break
 
             if busy == 0:
-                next_time = sortedTime[0]
+                next_time = sortedTaskByTime[0][0]
             else:
                 next_time = timeCounter+busy
             # push task into queue
-            while len(sortedTime) > 0 and sortedTime[0] <= next_time:
-                tasksNeedGotoQueueArr = taskByTimeDict[sortedTime[0]]
-                sortedTime.pop(0)
+            while len(sortedTaskByTime) > 0 and sortedTaskByTime[0][0] <= next_time:
+                tasksNeedGotoQueue = sortedTaskByTime[0][1]
+                sortedTaskByTime.pop(0)
 
-                for tasksNeedGotoQueue in tasksNeedGotoQueueArr:
-                    heapq.heappush(queue, (tasksNeedGotoQueue[1][1], tasksNeedGotoQueue[0], tasksNeedGotoQueue))
+                heapq.heappush(queue, (tasksNeedGotoQueue[1][1], tasksNeedGotoQueue[0], tasksNeedGotoQueue))
 
             timeCounter = next_time
             busy = 0

@@ -16,5 +16,17 @@ from timebudget import timebudget
 # @lc code=start
 class Solution:
     def leastBricks(self, wall: List[List[int]]) -> int:
-        return
+        totalWidthDict = {}
+        maxTotalWidth = 0
+        for row in wall:
+            totalWidth = 0
+            for brick in row[0:-1:]:
+                totalWidth += brick
+                if totalWidth not in totalWidthDict:
+                    totalWidthDict[totalWidth] = 0
+                totalWidthDict[totalWidth] += 1
+
+                maxTotalWidth = max(totalWidthDict[totalWidth], maxTotalWidth)
+
+        return len(wall) - maxTotalWidth
 # @lc code=end

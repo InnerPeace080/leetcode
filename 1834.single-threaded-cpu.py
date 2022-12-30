@@ -7,6 +7,7 @@
 import heapq
 import inspect
 import json
+from collections import deque
 from typing import List
 
 from timebudget import timebudget
@@ -22,7 +23,7 @@ class Solution:
 
         taskOrder = []
 
-        sortedTaskByTime = sorted([(task[1][0], task) for task in enumerate(tasks)])
+        sortedTaskByTime = deque(sorted([(task[1][0], task) for task in enumerate(tasks)]))
 
         while True:
             if (len(queue) == 0 and len(sortedTaskByTime) == 0):
@@ -35,7 +36,7 @@ class Solution:
             # push task into queue
             while len(sortedTaskByTime) > 0 and sortedTaskByTime[0][0] <= next_time:
                 tasksNeedGotoQueue = sortedTaskByTime[0][1]
-                sortedTaskByTime.pop(0)
+                sortedTaskByTime.popleft()
 
                 heapq.heappush(queue, (tasksNeedGotoQueue[1][1], tasksNeedGotoQueue[0], tasksNeedGotoQueue))
 

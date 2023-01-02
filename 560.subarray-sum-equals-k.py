@@ -14,5 +14,23 @@ from typing import List
 # @lc code=start
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        return
+
+        total = 0
+        count = 0
+        totalDict = {}
+
+        for num in nums:
+            total += num
+
+            if totalDict.get(total-k) != None:
+                count += totalDict[total - k]
+
+            totalDict[total] = (totalDict[total] + 1) if totalDict.get(total) != None else 1
+
+            # print(totalDict)
+
+            if (total == k):
+                count += 1
+
+        return count
 # @lc code=end
